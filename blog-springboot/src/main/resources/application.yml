@@ -10,9 +10,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://124.221.149.252:3306/blog?serverTimezone=Asia/Shanghai&allowMultiQueries=true&characterEncoding=UTF-8
-    username: root
-    password: 123456
+    url: jdbc:mysql://你的ip:3306/blog?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: MYSQL用户名
+    password: MYSQL密码
     hikari:
       minimum-idle: 5
       # 空闲连接存活最大时间，默认600000（10分钟）
@@ -30,15 +30,15 @@ spring:
       connection-test-query: SELECT 1
   # redis配置
   redis:
-    host: 124.221.149.252
+    host: 你的ip
     port: 6379
-    password: 123456
+    password: Redis密码
   # mq配置
   rabbitmq:
-    host: 124.221.149.252
+    host: 你的ip
     port: 5672
-    username: guest
-    password: guest
+    username: rabbitmq用户名
+    password: rabbitmq密码
     listener:
       simple:
         retry:
@@ -48,12 +48,12 @@ spring:
   # es配置 若搜索模式为mysql可删除
   elasticsearch:
     rest:
-      uris: 124.221.149.252:9200
-  # 邮箱配置（邮件回复通知）
+      uris: 你的IP:9200
+  # 邮箱配置
   mail:
     host: smtp.qq.com
-    username: yunlongyu666@qq.com
-    password: jxxreftypqdjcaef
+    username: 邮箱用户名
+    password: 邮箱授权码
     default-encoding: UTF-8
     port: 587
     properties:
@@ -77,31 +77,30 @@ mybatis-plus:
 
 # 搜索模式 可选 elasticsearch或mysql
 search:
-  mode: elasticsearch
-
+  mode: mysql
 
 # 上传模式 可选 oss或local  （http://和最后的/一定不能去！！！）
 upload:
-  mode: oss
+  mode: local
   local:
-    # 文件上传子域名,无域名则为 ip:83
-    url: https://www.static.yuyunlong.cn/
-    # nginx映射本地文件路径
+    # nginx映射本地文件路径，无域名则为 ip:83
+    url: http://你的文件上传子域名/
+    # 本地文件存储路径
     path: /usr/local/upload/
   oss:
-    url: https://yylblogbucket.oss-cn-shanghai.aliyuncs.com/
-    endpoint: http://oss-cn-shanghai.aliyuncs.com/
-    accessKeyId: LTAI5tS5Ldg2ecsVLKpGfBpB
-    accessKeySecret: qUybirBeYIQaxQtvlkCgNr1egq2FYW
-    bucketName: yylblogbucket
+    url: http://Bucket域名/
+    endpoint: OSS配置endpoint
+    accessKeyId: OSS配置accessKeyId
+    accessKeySecret: OSS配置accessKeySecret
+    bucketName: OSS配置bucketName
 
-# 网站前台域名（邮件通知，邮件显示网站地址）
+# 网站前台域名（邮件通知用）
 website:
-  url: https://www.yuyunlong.cn
+  url: http://你的主域名或ip
 
 #第三方配置信息
 qq:
-  app-id: 102000210
+  app-id: QQ APPID
   check-token-url: https://graph.qq.com/oauth2.0/me?access_token={access_token}
   user-info-url: https://graph.qq.com/user/get_user_info?openid={openid}&access_token={access_token}&oauth_consumer_key={oauth_consumer_key}
 
@@ -109,6 +108,6 @@ weibo:
   app-id: 微博APPID
   app-secret: 微博APPSECRET
   grant-type: authorization_code
-  redirect-url: https://www.yuyunlong.cn/oauth/login/weibo
+  redirect-url: 微博回调地址
   access-token-url: https://api.weibo.com/oauth2/access_token
   user-info-url: https://api.weibo.com/2/users/show.json?uid={uid}&access_token={access_token}
